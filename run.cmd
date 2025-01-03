@@ -1,0 +1,1 @@
+rye run python .\main.py
