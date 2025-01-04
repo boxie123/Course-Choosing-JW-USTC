@@ -41,7 +41,11 @@ class Student:
         }
 		stuChoosedUrl = 'https://jw.ustc.edu.cn/ws/for-std/course-select/selected-lessons'
 		response = self.sess.post(stuChoosedUrl, data=parse.urlencode(params))
-		stuChoosedJSON = response.json()
+		try:
+			stuChoosedJSON = response.json()
+		except json.decoder.JSONDecodeError:
+			self.writeLogs("获取列表失败，请检查Cookie是否过期")
+			raise
 		return stuChoosedJSON
 
 	def getAddableCourseList(self):
