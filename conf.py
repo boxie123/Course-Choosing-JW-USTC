@@ -16,3 +16,5 @@ COOKIE = os.environ.get('USTCCC_COOKIE')
 COURSE_TO_CHOOSE = ast.literal_eval(os.environ.get('USTCCC_COURSE_TO_CHOOSE'))
 # 开始选课时间戳(2025/01/08 15:00:00)
 START_TIME = ast.literal_eval(os.environ.get('USTCCC_START_TIME'))
+# 是否持续重试
+CONTINUOUSLY = ast.literal_eval(os.environ.get('USTCCC_CONTINUOUSLY'))

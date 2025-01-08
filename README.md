@@ -26,6 +26,8 @@ ustc自动选课
    USTCCC_COURSE_TO_CHOOSE=["MARX6103U.01","MARX6102U.01"]
    # 开始选课时间戳(示例为2025/01/08 15:00:00)
    USTCCC_START_TIME=1736319600
+   # 选课失败后是否持续重试
+   USTCCC_CONTINUOUSLY=True
    ```
 3. 配置python运行环境并运行
    - 如果已安装[`rye`](https://github.com/astral-sh/rye)：

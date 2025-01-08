@@ -10,7 +10,7 @@ import jmespath
 
 
 class Student:
-	def __init__(self, studentID, turnID, cookie, start_time):
+	def __init__(self, studentID, turnID, cookie, start_time, continuously):
 		'''
 			作用：初始化用户信息
 		'''
@@ -19,6 +19,7 @@ class Student:
 		self.cookie = cookie
 		self.start_time = start_time
 		self.count = 0
+		self.continuously = bool(continuously)
 		self.filename = f"AddableCourse_{studentID}.json"
         # 构建一个Session对象，可以保存页面Cookie
 		self.sess = httpx.Client(headers={
@@ -129,19 +130,24 @@ class Student:
                     "requestId": req_id,
                 }
 				resp2 = self.sess.post(dropRespUrl, data=parse.urlencode(params2))
-				result = resp2.json()
-				self.writeLogs('线程{}：正在抢课【{}】\t结果：【{}】'.format(index, courseID, result))
+				try:
+					result = resp2.json()
+					self.writeLogs('线程{}：正在抢课【{}】'.format(index, courseCode))
+					is_succ = result["success"]
+				except:
+					self.writeLogs('线程{}：抢课【{}】时发生错误...错误信息：{}，请检查cookie是否过期'.format(index, courseCode, result))
+					continue
 				# 选课成功，关闭线程
-				if result["success"]:
+				if is_succ:
 					self.writeLogs('线程{}：选课成功...'.format(index))
 					self.writeLogs('线程{}：关闭...'.format(index))
 					break# 关闭该线程
 				# 满了，继续抢
-				elif self.count >= 100:
+				elif self.count >= 100 and (not self.continuously):
 					self.writeLogs('线程{}：已达最大尝试次数，关闭'.format(index))
 					break
 				else:
-					self.writeLogs('线程{}：抢课【{}】时发生错误...错误信息：{}'.format(index, courseID, result))
+					self.writeLogs('线程{}：抢课【{}】时发生错误...错误信息：{}'.format(index, courseCode, result))
 					self.writeLogs('线程{}：重试中'.format(index))
 					threadSleepTime = random.uniform(0.1, 0.3)
 					self.writeLogs('线程{}：防止被发现，休息{:.2f}秒...'.format(index, threadSleepTime))
