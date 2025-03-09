@@ -4,7 +4,11 @@ ustc自动选课
 
 适用于在网站`https://jw.ustc.edu.cn/for-std/course-select/{student_id}/turn/{turn_id}/select`选课的同学
 
-这是作者写来自用的库，部分代码参考了[Course-Choosing-SSE-USTC](https://github.com/jianhu-chen/Course-Choosing-SSE-USTC)，如果你发现了本仓库，可以使用，但请勿传播，否则所造成一切后果作者概不负责。
+这是作者写来自用的库，部分代码参考了[Course-Choosing-SSE-USTC](https://github.com/jianhu-chen/Course-Choosing-SSE-USTC)，如果你发现了本仓库，请勿传播，如果下载请在24小时内删除。
+
+> [!WARNING]
+> 长时间使用此脚本可能导致选课功能暂时被封禁，请详细阅读代码内容并确保理解它在做什么后再使用，所造成一切不良后果作者概不负责。
+
 
 ## 使用方法
 使用前需先安装`python`，版本 >= 3.8
